@@ -21,7 +21,8 @@ def preprocess_data(df):
     # --- Step 3: Clean TotalCharges ---
     if 'TotalCharges' in df.columns:
         df['TotalCharges'] = pd.to_numeric(df['TotalCharges'], errors='coerce')
-        df['TotalCharges'].fillna(df['TotalCharges'].median(), inplace=True)
+        # FIXED: No more pandas warning
+        df['TotalCharges'] = df['TotalCharges'].fillna(df['TotalCharges'].median())
 
     # --- Step 4: Feature Engineering ---
     if {'TotalCharges', 'tenure'}.issubset(df.columns):

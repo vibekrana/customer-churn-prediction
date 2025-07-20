@@ -5,11 +5,17 @@ from sklearn.metrics import classification_report
 from imblearn.over_sampling import SMOTE
 import matplotlib.pyplot as plt
 import pickle
-from src.preprocess import preprocess_data
+import os
+from preprocess import preprocess_data
 
 def train_model():
     # --- Load and preprocess data ---
-    df = pd.read_csv("WA_Fn-UseC_-Telco-Customer-Churn.csv")
+    # Use correct path for CSV file
+    csv_path = "WA_Fn-UseC_-Telco-Customer-Churn.csv"
+    if not os.path.exists(csv_path):
+        csv_path = "../WA_Fn-UseC_-Telco-Customer-Churn.csv"
+    
+    df = pd.read_csv(csv_path)
     df = preprocess_data(df)
 
     X = df.drop("Churn", axis=1)
@@ -29,10 +35,16 @@ def train_model():
     print("\n📊 Classification Report:\n")
     print(classification_report(y_test, y_pred))
 
-    # --- Save model ---
-    with open("../models/model.pkl", "wb") as f:
+    # --- Create models directory if it doesn't exist ---
+    models_dir = "models"
+    if not os.path.exists(models_dir):
+        os.makedirs(models_dir)
+
+    # --- Save model with correct path ---
+    model_path = os.path.join(models_dir, "model.pkl")
+    with open(model_path, "wb") as f:
         pickle.dump(model, f)
-    print("✅ Model saved to ../models/model.pkl")
+    print(f"✅ Model saved to {model_path}")
 
     # --- Plot feature importance ---
     feat_imp = pd.Series(model.feature_importances_, index=X.columns).sort_values(ascending=False)[:15]
@@ -41,8 +53,12 @@ def train_model():
     plt.title("Top 15 Features - Random Forest")
     plt.gca().invert_yaxis()
     plt.tight_layout()
-    plt.savefig("../models/feature_importance.png")
-    print("📈 Feature importance saved to ../models/feature_importance.png")
+    
+    # Save plot with correct path
+    plot_path = os.path.join(models_dir, "feature_importance.png")
+    plt.savefig(plot_path)
+    print(f"📈 Feature importance saved to {plot_path}")
+    plt.close()
 
 if __name__ == "__main__":
     train_model()

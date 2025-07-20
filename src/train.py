@@ -5,7 +5,7 @@ from sklearn.metrics import classification_report
 from imblearn.over_sampling import SMOTE
 import matplotlib.pyplot as plt
 import pickle
-from preprocess import preprocess_data
+from src.preprocess import preprocess_data
 
 def train_model():
     # --- Load and preprocess data ---

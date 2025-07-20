@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, render_template
 import pickle
 import pandas as pd
-from preprocess import preprocess_data
+from src.preprocess import preprocess_data
 from flask_cors import CORS
 import os
 

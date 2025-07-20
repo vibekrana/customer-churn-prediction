@@ -3,11 +3,13 @@ import pickle
 import pandas as pd
 from preprocess import preprocess_data
 from flask_cors import CORS
+import os
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="static", template_folder="templates")
 CORS(app)
 
-model = pickle.load(open("../models/model.pkl", "rb"))
+# Adjust model path if running on Render (relative to src/)
+model = pickle.load(open("models/model.pkl", "rb"))
 
 @app.route('/')
 def home():
@@ -34,6 +36,5 @@ def predict():
     })
 
 if __name__ == "__main__":
-    import os
     port = int(os.environ.get("PORT", 5000))
     app.run(debug=False, host="0.0.0.0", port=port)

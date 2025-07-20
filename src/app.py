@@ -8,8 +8,8 @@ import os
 app = Flask(__name__, static_folder="static", template_folder="templates")
 CORS(app)
 
-# Adjust model path if running on Render (relative to src/)
-model = pickle.load(open("models/model.pkl", "rb"))
+model_path = os.path.join(os.path.dirname(__file__), 'models', 'model.pkl')
+model = pickle.load(open(model_path, 'rb'))
 
 @app.route('/')
 def home():

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Churn Predictor</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>🔮 Customer Churn Prediction</h1>
+    <form id="churnForm">
+      <div class="form-grid">
+        <label>Gender:</label><select id="gender"><option>Male</option><option>Female</option></select>
+        <label>Senior Citizen:</label><select id="SeniorCitizen"><option value="0">No</option><option value="1">Yes</option></select>
+        <label>Partner:</label><select id="Partner"><option>Yes</option><option>No</option></select>
+        <label>Dependents:</label><select id="Dependents"><option>Yes</option><option>No</option></select>
+        <label>Tenure (months):</label><input type="number" id="tenure" value="12" />
+        <label>Phone Service:</label><select id="PhoneService"><option>Yes</option><option>No</option></select>
+        <label>Internet Service:</label><select id="InternetService"><option>DSL</option><option>Fiber optic</option><option>No</option></select>
+        <label>Contract:</label><select id="Contract"><option>Month-to-month</option><option>One year</option><option>Two year</option></select>
+        <label>Paperless Billing:</label><select id="PaperlessBilling"><option>Yes</option><option>No</option></select>
+        <label>Payment Method:</label>
+        <select id="PaymentMethod">
+          <option>Electronic check</option>
+          <option>Mailed check</option>
+          <option>Bank transfer (automatic)</option>
+          <option>Credit card (automatic)</option>
+        </select>
+        <label>Monthly Charges:</label><input type="number" id="MonthlyCharges" value="70.0" step="0.1" />
+        <label>Total Charges:</label><input type="number" id="TotalCharges" value="1500.0" step="0.1" />
+      </div>
+      <button type="submit">Predict</button>
+    </form>
+    <div id="result"></div>
+  </div>
+  <script src="/static/script.js"></script>
+</body>
+</html>
